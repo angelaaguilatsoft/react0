@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React con link script (react en crudo)</title>
+    <!-- https://es.react.dev/learn/add-react-to-an-existing-project -->
+    <style>
+        picture {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100px;
+        }
+        img {
+            box-shadow: 0 0 15px #999;
+            border-radius: 50%;
+            width: 100px;
+        }
+        img.disabled {
+            opacity: 0.3;
+        }
+    </style>
+    <!-- libreria de react, core de la aplciación, es para todas las vistas -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- tiene el codigo para que react funcione en el navegador -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <h1>Women in Tech</h1>
+    <div id="app"></div>
+
+    <script>
+
+        const $app = document.getElementById("app")
+
+        // permite crear elementos
+        const h = React.createElement;
+
+        /* avatar se genera de otra manera */
+        const Avatar = params => {
+            const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`
+            return h('img', {src} )
+        };
+
+        ReactDOM.render(
+        // se quiere renderizar un div, que no tiene atributo (null), y que dentro renderiza un array, con el avatar
+        h('div', null, [h(Avatar, {id: 1}), h(Avatar, {id: 2})]),$app);
+
+    </script>
+
+</body>
+</html>

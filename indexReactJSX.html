@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React con script de react</title>
+    <!-- https://es.react.dev/learn/add-react-to-an-existing-project -->
+    <style>
+        picture {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100px;
+        }
+        img {
+            box-shadow: 0 0 15px #999;
+            border-radius: 50%;
+            width: 100%;
+        }
+        img.disabled {
+            opacity: 0.3;
+        }
+    </style>
+    <!-- libreria de react, core de la aplciación, es para todas las vistas -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- tiene el codigo para que react funcione en el navegador -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- usar jsx para que funcione correctamente, lo que hace es transformar el código -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <h1>Women in Tech</h1>
+    <div id="app"></div>
+
+    <!-- type se agrega solo para probar, ya que detecta las etiquetas del script con text/babel, y lo transforma para usar JSX, Babel es el compilador de JSX-->
+    <script type="text/babel">
+
+        const $app = document.getElementById("app")
+        const useState = React.useState 
+
+        /* props son los parámetros, propiedades que tiene el componente, con eso podemos hacer que el comportamiento () y a interfaz del componente cambie */
+        const Avatar = props => {
+
+            const [enabled, setEnabled ] = useState(true)
+            // const state = useState(true)
+            // const enabled = state[0]
+            // const SetEnabled = state[1]
+
+            const src = `https://randomuser.me/api/portraits/women/${props.id}.jpg`
+            // solo se renderiza lo que necesario, no todo
+            const className = enabled ? '' : 'disabled'
+
+            // renderizar 
+            return (
+            <picture>
+                {/* Evento: al hacer click (onclick) la imagen se deshabilita, y se le pasa una función 
+                    Entre llaves va lo que se quiere ejecutar.
+                    Event devuelve el evento que se está haciendo click*/}
+                {/* disabled es un string asi que no se usa llaves*/}
+                <img onClick = {() => setEnabled(!enabled)} className={className}
+                 src={src} 
+                 />
+                <strong>{props.name}</strong>
+            </picture>
+            );
+        };  
+
+        ReactDOM.render(
+            <div>
+                <Avatar id= {10} name='Caudia' size="small" />
+                <Avatar id= {11} name='JSXLady'/> 
+            </div>,
+            $app
+        );
+
+    </script>
+
+</body>
+</html>
